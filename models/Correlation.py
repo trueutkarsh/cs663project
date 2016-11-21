@@ -43,10 +43,11 @@ class Correlation:
         return idx
 
     def score(self, X, Y):
+        X = (X - X.mean(axis = 0))/X.std(axis = 0)
         result = self.predict(X)
         diff = np.rint(result - Y)
         self.accuracy = float((result.shape[0] - np.count_nonzero(diff)))/float(result.shape[0])
-        return self.accuracy
+        return self.accuracy, self.fitTime
 
 if __name__ == '__main__':
     c = Correlation(None, None)
